@@ -7,11 +7,11 @@ endif()
 
 set(GLEW_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glew)
 
-include_directories( ${GLEW_SOURCE_DIR})
+include_directories( ${GLEW_SOURCE_DIR}/include)
 
 add_definitions( "-DGLEW_STATIC" )
 
-file( GLOB GLEW_HEADERS ${GLEW_SOURCE_DIR}/GL/*.h )
+file( GLOB GLEW_HEADERS ${GLEW_SOURCE_DIR}/include/GL/*.h )
 file( GLOB GLEW_SOURCES ${GLEW_SOURCE_DIR}/src/glew.c )
 
 add_library( glew STATIC ${GLEW_SOURCES} ${GLEW_HEADERS} )
