@@ -18,6 +18,10 @@ file( GLOB GLEW_SOURCES ${GLEW_SOURCE_DIR}/src/glew.c )
 
 add_library( ${THIS_LIBRARY} STATIC ${GLEW_SOURCES} ${GLEW_HEADERS} )
 
+
+
+set_target_properties(${THIS_LIBRARY} PROPERTIES PUBLIC_HEADER GLEW_HEADERS)
+
 set(BINDIR bin)
 set(BINCOMPONENT runtime)
 set(LIBDIR lib)
