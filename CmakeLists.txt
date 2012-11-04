@@ -9,12 +9,14 @@ endif()
 set(GLEW_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glew)
 include_directories( ${GLEW_SOURCE_DIR}/include)
 
-if(GLEW_BUILD_STATIC)
-	add_definitions( "-DGLEW_STATIC" )
-	set(GLEW_LIBTYPE STATIC)
-else()
+if(GLEW_BUILD_SHARED)
 	set(GLEW_LIBTYPE SHARED)
+else()
+	set(GLEW_LIBTYPE STATIC)
+	add_definitions( "-DGLEW_STATIC" )
 endif()
+
+#must fix shared build
 
 set(API
 	${GLEW_SOURCE_DIR}/include/GL/glew.h
