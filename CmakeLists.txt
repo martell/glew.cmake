@@ -18,15 +18,15 @@ set(API
 	${GLEW_SOURCE_DIR}/include/GL/glxew.h
 	${GLEW_SOURCE_DIR}/include/GL/wglew.h)
 
-source_group(API FILES ${API})
+source_group(HEADERS FILES ${API})
 
 
 set(SOURCES
 	${GLEW_SOURCE_DIR}/src/glew.c)
 
-add_library( ${THIS_LIBRARY} STATIC ${SOURCES})
+add_library( ${THIS_LIBRARY} STATIC ${SOURCES} ${HEADERS})
 
-set_target_properties(glew PROPERTIES PUBLIC_HEADER ${API})
+set_target_properties(glew PROPERTIES PUBLIC_HEADER "${API}")
 
 set(BINDIR bin)
 set(BINCOMPONENT runtime)
