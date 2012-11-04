@@ -26,7 +26,7 @@ set(BINDIR bin)
 set(BINCOMPONENT runtime)
 set(LIBDIR lib)
 set(LIBCOMPONENT dev)
-set(INCLUDEDIR include)
+set(INCLUDEDIR include/GL) # fix
 set(INCLUDECOMPONENT dev)
 
 install(TARGETS ${THIS_LIBRARY}
