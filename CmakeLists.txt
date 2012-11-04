@@ -13,14 +13,19 @@ include_directories( ${GLEW_SOURCE_DIR}/include)
 
 add_definitions( "-DGLEW_STATIC" )
 
-file( GLOB GLEW_HEADERS ${GLEW_SOURCE_DIR}/include/GL/*.h )
-file( GLOB GLEW_SOURCES ${GLEW_SOURCE_DIR}/src/glew.c )
+set(API
+	${GLEW_SOURCE_DIR}/include/GL/glew.h
+	${GLEW_SOURCE_DIR}/include/GL/glxew.h
+	${GLEW_SOURCE_DIR}/include/GL/wglew.h)
 
-add_library( ${THIS_LIBRARY} STATIC ${GLEW_SOURCES} ${GLEW_HEADERS} )
+source_group(API FILES ${API})
+set_target_properties(glew PROPERTIES PUBLIC_HEADER ${API})
 
+set(SOURCES
+	${GLEW_SOURCE_DIR}/src/glew.c)
 
+add_library( ${THIS_LIBRARY} STATIC ${SOURCES})
 
-set_target_properties(${THIS_LIBRARY} PROPERTIES PUBLIC_HEADER ${GLEW_HEADERS})
 
 set(BINDIR bin)
 set(BINCOMPONENT runtime)
