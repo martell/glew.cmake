@@ -1,30 +1,32 @@
 cmake_minimum_required(VERSION 2.8.10)
 
-set(THIS_LIBRARY glew)
-project( ${THIS_LIBRARY} )
+project(glew)
 
 if(MINGW OR UNIX)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-attributes")
 endif()
 
 set(GLEW_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glew)
-
 include_directories( ${GLEW_SOURCE_DIR}/include)
 
-add_definitions( "-DGLEW_STATIC" )
+if(GLEW_BUILD_STATIC)
+	add_definitions( "-DGLEW_STATIC" )
+	set(GLEW_LIBTYPE STATIC)
+else()
+	set(GLEW_LIBTYPE SHARED)
+endif()
 
 set(API
 	${GLEW_SOURCE_DIR}/include/GL/glew.h
 	${GLEW_SOURCE_DIR}/include/GL/glxew.h
 	${GLEW_SOURCE_DIR}/include/GL/wglew.h)
 
-source_group(HEADERS FILES ${API})
-
+source_group(API FILES ${API})
 
 set(SOURCES
 	${GLEW_SOURCE_DIR}/src/glew.c)
 
-add_library( ${THIS_LIBRARY} STATIC ${SOURCES} ${HEADERS})
+add_library(glew ${GLEW_LIBTYPE} ${SOURCES} ${API})
 
 set_target_properties(glew PROPERTIES PUBLIC_HEADER "${API}")
 
@@ -32,10 +34,10 @@ set(BINDIR bin)
 set(BINCOMPONENT runtime)
 set(LIBDIR lib)
 set(LIBCOMPONENT dev)
-set(INCLUDEDIR include/GL) # fix
+set(INCLUDEDIR include/GL)
 set(INCLUDECOMPONENT dev)
 
-install(TARGETS ${THIS_LIBRARY}
+install(TARGETS glew
 	RUNTIME DESTINATION ${BINDIR} COMPONENT ${BINCOMPONENT}
 	LIBRARY DESTINATION ${LIBDIR} COMPONENT ${LIBCOMPONENT}
 	ARCHIVE DESTINATION ${LIBDIR} COMPONENT ${LIBCOMPONENT}
